@@ -11,7 +11,8 @@ RUN yum install -y yum-utils python-setuptools inotify-tools unzip sendmail tar 
 #Install yum repos and utils epel-release 
 #rpm -Uvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm  && \
 #yum -y install epel-release && \
-ADD container-files /
+
+ADD nginx.repo /etc/yum.repos.d
 RUN yum install -y nginx
 RUN yum -y install epel-release && \
     rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm && \
@@ -39,7 +40,7 @@ RUN groupmod --gid 80 --new-name www nginx && \
     #lib/nginx
 
 #Add pre-configured files
-#ADD container-files /
+ADD container-files /
 RUN find /config |grep .sh |xargs chmod +x
 
 VOLUME ["/data"]
