@@ -35,7 +35,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN groupmod --gid 80 --new-name www nginx && \
     usermod --uid 80 --home /data/www --gid 80 --login www --shell /bin/bash --comment www nginx && \
     rm -rf /etc/nginx/*.d /etc/nginx/*_params && \
-    chown -R www:www /var/lib/nginx
+    chown -R www:www /var/www
+    #lib/nginx
 
 #Add pre-configured files
 #ADD container-files /
