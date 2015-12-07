@@ -9,13 +9,16 @@ MAINTAINER The maintainer
 RUN yum install -y yum-utils python-setuptools inotify-tools unzip sendmail tar mysql sudo wget telnet rsync git
 
 #Install yum repos and utils epel-release 
-RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm  && \
+#rpm -Uvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm  && \
+#yum -y install epel-release && \
+ADD container-files /
+RUN yum install -y nginx
+RUN yum -y install epel-release && \
     rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm && \
     yum-config-manager -q --enable remi && \
     yum-config-manager -q --enable remi-php56
 
 #Install nginx, php-fpm and php extensions
-RUN yum install -y nginx
 RUN yum install -y php-fpm php-common memcached
 RUN yum install -y php-pecl-apc php-cli php-pear php-pdo php-mysql php-pecl-memcache php-pecl-memcached php-gd php-mbstring php-mcrypt php-xml php-adodb php-imap php-intl php-soap
 RUN yum install -y php-mysqli php-zip php-iconv php-curl php-simplexml php-dom php-bcmath php-opcache php-pecl-redis
@@ -35,7 +38,7 @@ RUN groupmod --gid 80 --new-name www nginx && \
     chown -R www:www /var/lib/nginx
 
 #Add pre-configured files
-ADD container-files /
+#ADD container-files /
 RUN find /config |grep .sh |xargs chmod +x
 
 VOLUME ["/data"]
