@@ -17,4 +17,4 @@ mkdir -p /data/logs
 mkdir -p /data/www/default
 echo "default vhost # created on $(date)" > /data/www/default/index.html
 
-chown -R www:www /data/www
+#chown -R www:www /data/www
